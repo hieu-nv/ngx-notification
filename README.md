@@ -1,4 +1,4 @@
-#ngx-notification
+# ngx-notification
 
 ## `NgxNotificationModule`
 > You need registering this module before you can use this library.

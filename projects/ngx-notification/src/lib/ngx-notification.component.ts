@@ -8,6 +8,26 @@ import {
 import { Subscription } from 'rxjs';
 
 @Component({
+    selector: 'ngx-notification',
+    template: `
+    <div class="{{ theme }}">
+        <div>{{ notification.message }}</div>
+    </div>
+    `,
+    styleUrls: ['./notification.scss']
+})
+export class NotificationComponent implements OnInit, OnDestroy {
+    @Input() theme = 'default';
+    @Input() public notification: Notification;
+
+    constructor() {}
+
+    ngOnInit(): void {}
+
+    ngOnDestroy(): void {}
+}
+
+@Component({
     selector: 'ngx-notification-container',
     template:
         '<ngx-notification *ngFor="let notification of notifications" [notification]="notification"></ngx-notification>',
@@ -54,24 +74,4 @@ export class NotificationContainerComponent implements OnInit, OnDestroy {
             this.notifications.splice(idx, 1);
         }
     }
-}
-
-@Component({
-    selector: 'ngx-notification',
-    template: `
-    <div class="{{ theme }}">
-        <div>{{ notification.message }}</div>
-    </div>
-    `,
-    styleUrls: ['./notification.scss']
-})
-export class NotificationComponent implements OnInit, OnDestroy {
-    @Input() theme = 'default';
-    @Input() notification: Notification;
-
-    constructor() {}
-
-    ngOnInit(): void {}
-
-    ngOnDestroy(): void {}
 }
