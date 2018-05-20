@@ -24,4 +24,5 @@ install:
   - npm i
 
 script:
+  - ng build ngx-notification
   - npm run test

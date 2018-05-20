@@ -1,6 +1,6 @@
 # ngx-notification
 
-[![Build Status](https://travis-ci.org/tickify/ngx-notification.svg?branch=master)](https://travis-ci.org/tickify/ngx-notification)
+[![Build Status](https://travis-ci.org/tickify/ngx-notification.svg?branch=develop)](https://travis-ci.org/tickify/ngx-notification)
 
 ## `NgxNotificationModule`
 > You need registering this module before you can use this library.
