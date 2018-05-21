@@ -20,18 +20,59 @@ export class NotificationComponent implements OnInit, OnDestroy {
     @Input() theme = 'default';
     @Input() public notification: Notification;
 
-    constructor() {}
+    private _timeout: any;
 
-    ngOnInit(): void {}
+    constructor(private notificationManager: NotificationManager) {}
 
-    ngOnDestroy(): void {}
+    ngOnInit(): void {
+        this._timeout = setTimeout(() => {
+            if (this.notification) {
+                this.notificationManager.remove(this.notification);
+            }
+        }, 5000);
+    }
+
+    ngOnDestroy(): void {
+        if (this._timeout) {
+            clearTimeout(this._timeout);
+        }
+    }
 }
+import {
+    state,
+    style,
+    animate,
+    trigger,
+    transition
+} from '@angular/animations';
 
 @Component({
     selector: 'ngx-notification-container',
-    template:
-        '<ngx-notification *ngFor="let notification of notifications" [notification]="notification"></ngx-notification>',
-    styleUrls: ['./notification-container.scss']
+    template: `
+        <ngx-notification *ngFor="let notification of notifications" [@flyInOut]="'in'" [notification]="notification"></ngx-notification>'
+    `,
+    styleUrls: ['./notification-container.scss'],
+    animations: [
+        trigger('flyInOut', [
+            state('in', style({ opacity: 1, transform: 'translateX(0)' })),
+            transition('void => *', [
+                style({
+                    opacity: 0,
+                    transform: 'translateX(-50%)'
+                }),
+                animate('0.75s 0.1s ease-in')
+            ]),
+            transition('* => void', [
+                animate(
+                    '0.75s 0.1s ease-out',
+                    style({
+                        opacity: 0,
+                        transform: 'translateX(100%)'
+                    })
+                )
+            ])
+        ])
+    ]
 })
 export class NotificationContainerComponent implements OnInit, OnDestroy {
     notifications: Array<Notification>;

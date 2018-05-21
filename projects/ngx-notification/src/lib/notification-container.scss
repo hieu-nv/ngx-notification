@@ -6,4 +6,12 @@
     box-sizing: border-box;
     text-align: left;
     color: #fff;
+    .active {
+        background-color: #cfd8dc;
+        transform: scale(1.1);
+    }
+    .inactive {
+        background-color: #eee;
+        transform: scale(1);
+    }
 }
