@@ -1,8 +1,17 @@
 {
-  "name": "@tickify/ngx-notification",
-  "version": "0.0.1",
-  "peerDependencies": {
-    "@angular/common": "^6.0.0-rc.0 || ^6.0.0",
-    "@angular/core": "^6.0.0-rc.0 || ^6.0.0"
-  }
+    "name": "@tickify/ngx-notification",
+    "version": "0.0.2",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tickify/ngx-notification.git"
+    },
+    "keywords": ["redux", "promise", "axios", "ajax"],
+    "homepage":
+        "https://github.com/tickify/ngx-notification/blob/master/README.md",
+    "author": "HieuNV",
+    "license": "MIT",
+    "peerDependencies": {
+        "@angular/common": "^6.0.0",
+        "@angular/core": "^6.0.0"
+    }
 }
