@@ -2,13 +2,18 @@
 
 [![Build Status](https://travis-ci.org/tickify/ngx-notification.svg?branch=develop)](https://travis-ci.org/tickify/ngx-notification)
 
+```bash
+npm install @tickify/ngx-notification
+yarn add @tickify/ngx-notification
+```
+
 ## `NgxNotificationModule`
 > You need registering this module before you can use this library.
-- Import module from `ngx-notification`
+- Import module from `@tickify/ngx-notification`
 ```TypeScript
-import { NgxNotificationModule } from 'ngx-notification';
+import { NgxNotificationModule } from '@tickify/ngx-notification';
 ```
-- Register module to other module which use `ngx-notification`
+- Register module to other module which use `@tickify/ngx-notification`
 ```TypeScript
 @NgModule({
     declarations: [AppComponent],
