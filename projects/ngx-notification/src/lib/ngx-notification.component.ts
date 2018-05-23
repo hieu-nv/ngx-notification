@@ -10,8 +10,11 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'ngx-notification',
     template: `
-    <div class="{{ theme }}">
-        <div>{{ notification.message }}</div>
+    <div class="aui-message {{ notification.type }}">
+        <p class="title">
+            <strong>{{ notification.title }}</strong>
+        </p>
+        <div [innerHtml]="notification.body"></div>
     </div>
     `,
     styleUrls: ['./notification.scss']
@@ -27,7 +30,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._timeout = setTimeout(() => {
             if (this.notification) {
-                this.notificationManager.remove(this.notification);
+                this.notificationManager.hide(this.notification);
             }
         }, 5000);
     }
@@ -87,12 +90,12 @@ export class NotificationContainerComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this.subscriptions.push(
             this.notificationManager.subscribe(x => {
-                switch (x.action) {
+                switch (x.args.action) {
                     case NotificationAction.PUSH_NOTIFICATION:
-                        this.push(x.notification);
+                        this.push(x.args.notification);
                         break;
-                    case NotificationAction.REMOVE_NOTIFICATION:
-                        this.remove(x.notification);
+                    case NotificationAction.HIDE_NOTIFICATION:
+                        this.hide(x.args.notification);
                         break;
                     default:
                         break;
@@ -109,7 +112,7 @@ export class NotificationContainerComponent implements OnInit, OnDestroy {
         this.notifications.push(notification);
     }
 
-    public remove(notification: Notification) {
+    public hide(notification: Notification) {
         const idx = this.notifications.indexOf(notification);
         if (idx >= 0) {
             this.notifications.splice(idx, 1);

@@ -36,6 +36,15 @@ This function return a object which is used when you want to remove that notific
 ### Remove Notification
 > Call remove function on `NotificationManager` to hide notification.
 ```TypeScript
-this.notificationManager.remove(this.notification);
+this.notificationManager.hide(this.notification);
 ```
 `this.notification` is object which is return when you call `this.notificationManager.push` function.
+
+### AUI
+```html
+    <link rel="preload" href="https://unpkg.com/@atlassian/aui@7.8.1/dist/aui/css/fonts/adgs-icons.woff" as="font">
+    <link rel="preload" href="https://unpkg.com/@atlassian/aui@7.8.1/dist/aui/css/fonts/adgs-icons.ttf" as="font">
+    <link rel="preload" href="https://unpkg.com/@atlassian/aui@7.8.1/dist/aui/css/fonts/adgs-icons.eot" as="font">
+    ...
+    <link href="https://unpkg.com/@atlassian/aui@7.8.1/dist/aui/css/aui.min.css" rel="stylesheet" />
+```
