@@ -5,7 +5,7 @@
         "type": "git",
         "url": "https://github.com/tickify/ngx-notification.git"
     },
-    "keywords": ["redux", "promise", "axios", "ajax"],
+    "keywords": ["angular", "notification", "aui"],
     "homepage":
         "https://github.com/tickify/ngx-notification/blob/master/README.md",
     "author": "HieuNV",

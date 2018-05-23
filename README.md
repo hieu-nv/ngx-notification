@@ -53,3 +53,11 @@ this.notificationManager.hide(this.notification);
     ...
     <link href="https://unpkg.com/@atlassian/aui@7.8.1/dist/aui/css/aui.min.css" rel="stylesheet" />
 ```
+
+## Contribution
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
+
+Copyright (c) 2018-present, HieuNV
