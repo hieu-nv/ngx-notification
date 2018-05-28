@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NotificationManager, Notification } from 'ngx-notification';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { not } from '@angular/compiler/src/output/output_ast';
+import { HttpClient } from '@angular/common/http';
+
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -9,12 +10,22 @@ import { not } from '@angular/compiler/src/output/output_ast';
 })
 export class AppComponent implements OnInit, OnDestroy {
     title = 'app';
+    bing = 'https://www.bing.com/az/hprichbg/rb/WineDay_EN-US9984225481_1920x1080.jpg';
     private notifications: Array<Notification>;
-    constructor(private notificationManager: NotificationManager) {
+    constructor(
+        private notificationManager: NotificationManager,
+        private http: HttpClient
+    ) {
         this.notifications = new Array();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.http
+            .get('http://hieunv.herokuapp.com/api/bing/images')
+            .subscribe((obj: any) => {
+                this.bing = 'https://bing.com' + obj.images[0].url;
+            });
+    }
 
     ngOnDestroy(): void {}
 

@@ -1,7 +1,14 @@
 * {
     font-family: 'Roboto', sans-serif;
 }
+
 h1 {
     color: #f00;
     font-weight: 100;
+}
+:host {
+    > div {
+        width: 100%;
+        height: 100%;
+    }
 }

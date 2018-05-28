@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
             <strong>{{ notification.title }}</strong>
         </p>
         <div [innerHtml]="notification.body"></div>
+        <div class="backdrop"></div>
     </div>
     `,
     styleUrls: ['./notification.scss']
@@ -32,7 +33,7 @@ export class NotificationComponent implements OnInit, OnDestroy {
             if (this.notification) {
                 this.notificationManager.hide(this.notification);
             }
-        }, 5000);
+        }, 60000);
     }
 
     ngOnDestroy(): void {
