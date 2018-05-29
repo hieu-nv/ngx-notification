@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/tickify/ngx-notification.svg?branch=master)](https://travis-ci.org/tickify/ngx-notification)
 
+## Demo
+https://tickify.github.io/ngx-notification/index.html
+
 ```bash
 npm install @tickify/ngx-notification
 yarn add @tickify/ngx-notification
