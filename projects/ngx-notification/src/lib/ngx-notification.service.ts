@@ -7,6 +7,7 @@ export class Notification {
     private _type: string;
     private _title: string;
     private _body: string;
+    private _closable = false;
 
     public constructor() {}
 
@@ -32,6 +33,14 @@ export class Notification {
 
     public set body(body: string) {
         this._body = body;
+    }
+
+    public get closable(): boolean {
+        return this._closable;
+    }
+
+    public set closable(closable: boolean) {
+        this._closable = closable;
     }
 }
 
@@ -63,9 +72,7 @@ export enum NotificationType {
     providedIn: 'root'
 })
 export class NotificationManager {
-    private _emitter: EventEmitter<
-        EventArgs<NotificationEventArgs>
-    > = new EventEmitter(true);
+    private _emitter: EventEmitter<EventArgs<NotificationEventArgs>> = new EventEmitter(true);
 
     constructor(private domSanitizer: DomSanitizer) {}
 
@@ -74,10 +81,7 @@ export class NotificationManager {
     }
 
     public notify(notification: Notification): void {
-        notification.body = this.domSanitizer.sanitize(
-            SecurityContext.HTML,
-            notification.body
-        );
+        notification.body = this.domSanitizer.sanitize(SecurityContext.HTML, notification.body);
         const args = {
             action: NotificationAction.PUSH_NOTIFICATION,
             notification: notification
@@ -123,7 +127,6 @@ export class NotificationManager {
         notification.title = notification.title || 'Hint!';
         this.notify(notification);
     }
-
 
     public hide(notification: Notification): Notification {
         const args = {

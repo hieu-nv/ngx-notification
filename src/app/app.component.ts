@@ -12,29 +12,23 @@ export class AppComponent implements OnInit, OnDestroy {
     title = 'app';
     bing = 'https://www.bing.com/az/hprichbg/rb/WineDay_EN-US9984225481_1920x1080.jpg';
     private notifications: Array<Notification>;
-    constructor(
-        private notificationManager: NotificationManager,
-        private http: HttpClient
-    ) {
+    constructor(private notificationManager: NotificationManager, private http: HttpClient) {
         this.notifications = new Array();
     }
 
     ngOnInit(): void {
-        this.http
-            .get('http://hieunv.herokuapp.com/api/bing/images')
-            .subscribe((obj: any) => {
-                this.bing = 'https://bing.com' + obj.images[0].url;
-            });
+        this.http.get('http://hieunv.herokuapp.com/api/bing/images').subscribe((obj: any) => {
+            this.bing = 'https://bing.com' + obj.images[0].url;
+        });
     }
 
     ngOnDestroy(): void {}
 
     public push($event) {
         const notification = new Notification();
-        notification.body =
-            new Date().getTime().toString() + 'This is a test message!';
-        const i = Math.floor(Math.random() * 5);
-        switch (Math.floor(Math.random() * 5)) {
+        notification.body = new Date().getTime().toString() + ' This is a test message!';
+        const i = Math.floor(Math.random() * 6);
+        switch (i) {
             case 0:
                 this.notificationManager.generic(notification);
                 break;
@@ -49,6 +43,10 @@ export class AppComponent implements OnInit, OnDestroy {
                 break;
             case 4:
                 this.notificationManager.hint(notification);
+                break;
+            default:
+                notification.closable = true;
+                this.notificationManager.notify(notification);
                 break;
         }
 

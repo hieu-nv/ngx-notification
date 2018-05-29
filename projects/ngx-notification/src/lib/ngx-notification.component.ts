@@ -1,20 +1,17 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { ViewEncapsulation } from '@angular/compiler/src/core';
-import {
-    NotificationManager,
-    NotificationAction,
-    Notification
-} from './ngx-notification.service';
+import { NotificationManager, NotificationAction, Notification } from './ngx-notification.service';
 import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'ngx-notification',
     template: `
-    <div class="aui-message {{ notification.type }}">
-        <p class="title">
+    <div class="aui-message closeable {{ notification.type }}">
+        <p *ngIf="!!notification.title" class="title">
             <strong>{{ notification.title }}</strong>
         </p>
         <div [innerHtml]="notification.body"></div>
+        <span *ngIf="!!notification.closable" class="aui-icon icon-close" role="button" tabindex="0" (click)="onClose($event)"></span>
         <div class="backdrop"></div>
     </div>
     `,
@@ -22,6 +19,8 @@ import { Subscription } from 'rxjs';
 })
 export class NotificationComponent implements OnInit, OnDestroy {
     @Input() theme = 'default';
+    @Input() timeout = -1;
+
     @Input() public notification: Notification;
 
     private _timeout: any;
@@ -29,11 +28,12 @@ export class NotificationComponent implements OnInit, OnDestroy {
     constructor(private notificationManager: NotificationManager) {}
 
     ngOnInit(): void {
+        if (this.timeout < 0) {
+            return;
+        }
         this._timeout = setTimeout(() => {
-            if (this.notification) {
-                this.notificationManager.hide(this.notification);
-            }
-        }, 60000);
+            this.notificationManager.hide(this.notification);
+        }, this.timeout);
     }
 
     ngOnDestroy(): void {
@@ -41,19 +41,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
             clearTimeout(this._timeout);
         }
     }
+
+    public onClose($event): void {
+        this.notificationManager.hide(this.notification);
+    }
 }
-import {
-    state,
-    style,
-    animate,
-    trigger,
-    transition
-} from '@angular/animations';
+import { state, style, animate, trigger, transition } from '@angular/animations';
+import { timeout } from 'q';
 
 @Component({
     selector: 'ngx-notification-container',
     template: `
-        <ngx-notification *ngFor="let notification of notifications" [@flyInOut]="'in'" [notification]="notification"></ngx-notification>'
+        <ngx-notification *ngFor="let notification of notifications" [@flyInOut]="'in'" [notification]="notification" timeout="{{ timeout }}"></ngx-notification>
     `,
     styleUrls: ['./notification-container.scss'],
     animations: [
@@ -79,6 +78,8 @@ import {
     ]
 })
 export class NotificationContainerComponent implements OnInit, OnDestroy {
+    @Input() timeout = -1;
+
     notifications: Array<Notification>;
 
     private subscriptions: Array<any>;

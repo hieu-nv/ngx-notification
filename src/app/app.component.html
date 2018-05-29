@@ -1,6 +1,6 @@
 <div [ngStyle]="{ 'text-align' : 'center', 'background-image': 'url(' + this.bing + ')'}">
     <h1>@tickify/ngx-notification</h1>
-    <ngx-notification-container>
+    <ngx-notification-container timeout="60000">
     </ngx-notification-container>
     <button (click)="push($event)">push notification</button>
 </div>
