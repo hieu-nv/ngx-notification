@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.http.get('http://hieunv.herokuapp.com/api/bing/images').subscribe((obj: any) => {
+        this.http.get('https://hieunv.herokuapp.com/api/bing/images').subscribe((obj: any) => {
             this.bing = 'https://bing.com' + obj.images[0].url;
         });
     }
